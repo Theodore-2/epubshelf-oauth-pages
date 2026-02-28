@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connected — ePub Shelf</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
 
     <style>
         :root {
@@ -19,7 +22,11 @@
             --line: rgba(232, 184, 75, 0.25);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
         body {
             font-family: 'DM Sans', sans-serif;
@@ -28,7 +35,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            overflow: hidden;
+            overflow-x: hidden;
+            overflow-y: auto;
             position: relative;
         }
 
@@ -38,8 +46,8 @@
             position: fixed;
             inset: 0;
             background:
-                radial-gradient(ellipse 80% 60% at 50% -10%, rgba(232,184,75,0.18) 0%, transparent 70%),
-                radial-gradient(ellipse 60% 40% at 100% 100%, rgba(232,184,75,0.1) 0%, transparent 60%);
+                radial-gradient(ellipse 80% 60% at 50% -10%, rgba(232, 184, 75, 0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 60% 40% at 100% 100%, rgba(232, 184, 75, 0.1) 0%, transparent 60%);
             pointer-events: none;
         }
 
@@ -54,23 +62,39 @@
         }
 
         /* Decorative lines */
-        .line-left, .line-right {
+        .line-left,
+        .line-right {
             position: fixed;
-            top: 0; bottom: 0;
+            top: 0;
+            bottom: 0;
             width: 1px;
             background: var(--line);
         }
-        .line-left { left: 60px; }
-        .line-right { right: 60px; }
 
-        .line-top, .line-bottom {
+        .line-left {
+            left: 60px;
+        }
+
+        .line-right {
+            right: 60px;
+        }
+
+        .line-top,
+        .line-bottom {
             position: fixed;
-            left: 0; right: 0;
+            left: 0;
+            right: 0;
             height: 1px;
             background: var(--line);
         }
-        .line-top { top: 60px; }
-        .line-bottom { bottom: 60px; }
+
+        .line-top {
+            top: 60px;
+        }
+
+        .line-bottom {
+            bottom: 60px;
+        }
 
         .corner {
             position: fixed;
@@ -80,10 +104,30 @@
             border-style: solid;
             opacity: 0.5;
         }
-        .corner-tl { top: 52px; left: 52px; border-width: 1px 0 0 1px; }
-        .corner-tr { top: 52px; right: 52px; border-width: 1px 1px 0 0; }
-        .corner-bl { bottom: 52px; left: 52px; border-width: 0 0 1px 1px; }
-        .corner-br { bottom: 52px; right: 52px; border-width: 0 1px 1px 0; }
+
+        .corner-tl {
+            top: 52px;
+            left: 52px;
+            border-width: 1px 0 0 1px;
+        }
+
+        .corner-tr {
+            top: 52px;
+            right: 52px;
+            border-width: 1px 1px 0 0;
+        }
+
+        .corner-bl {
+            bottom: 52px;
+            left: 52px;
+            border-width: 0 0 1px 1px;
+        }
+
+        .corner-br {
+            bottom: 52px;
+            right: 52px;
+            border-width: 0 1px 1px 0;
+        }
 
         /* Main card */
         .card {
@@ -96,8 +140,15 @@
         }
 
         @keyframes rise {
-            from { opacity: 0; transform: translateY(32px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(32px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* Brand mark */
@@ -108,8 +159,13 @@
         }
 
         @keyframes fade {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
         }
 
         .brand-name {
@@ -130,8 +186,15 @@
         }
 
         @keyframes seal-in {
-            from { transform: scale(0.5) rotate(-30deg); opacity: 0; }
-            to { transform: scale(1) rotate(0deg); opacity: 1; }
+            from {
+                transform: scale(0.5) rotate(-30deg);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
         }
 
         .seal {
@@ -207,11 +270,11 @@
 
         /* Items */
         .items {
-            border: 1px solid rgba(232,184,75,0.3);
+            border: 1px solid rgba(232, 184, 75, 0.3);
             border-radius: 4px;
             overflow: hidden;
             margin-bottom: 36px;
-            background: rgba(255,255,255,0.6);
+            background: rgba(255, 255, 255, 0.6);
             backdrop-filter: blur(8px);
         }
 
@@ -220,15 +283,29 @@
             align-items: flex-start;
             gap: 16px;
             padding: 18px 24px;
-            border-bottom: 1px solid rgba(232,184,75,0.15);
+            border-bottom: 1px solid rgba(232, 184, 75, 0.15);
             animation: fade 0.6s ease both;
         }
 
-        .item:last-child { border-bottom: none; }
-        .item:nth-child(1) { animation-delay: 0.7s; }
-        .item:nth-child(2) { animation-delay: 0.8s; }
-        .item:nth-child(3) { animation-delay: 0.9s; }
-        .item:nth-child(4) { animation-delay: 1.0s; }
+        .item:last-child {
+            border-bottom: none;
+        }
+
+        .item:nth-child(1) {
+            animation-delay: 0.7s;
+        }
+
+        .item:nth-child(2) {
+            animation-delay: 0.8s;
+        }
+
+        .item:nth-child(3) {
+            animation-delay: 0.9s;
+        }
+
+        .item:nth-child(4) {
+            animation-delay: 1.0s;
+        }
 
         .item-icon {
             width: 20px;
@@ -280,25 +357,43 @@
         }
 
         @keyframes tick {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.15); }
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
         }
 
         .close-hint {
             display: block;
             margin-top: 8px;
             font-size: 12px;
-            color: rgba(122,110,98,0.5);
+            color: rgba(122, 110, 98, 0.5);
             letter-spacing: 0.08em;
             text-transform: uppercase;
         }
 
         @media (max-width: 480px) {
-            .line-left, .line-right, .line-top, .line-bottom, .corner { display: none; }
-            .headline h1 { font-size: 34px; }
+
+            .line-left,
+            .line-right,
+            .line-top,
+            .line-bottom,
+            .corner {
+                display: none;
+            }
+
+            .headline h1 {
+                font-size: 34px;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <!-- Decorative frame -->
@@ -323,24 +418,25 @@
             <div class="seal">
                 <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <!-- Outer ring -->
-                    <circle cx="48" cy="48" r="45" stroke="#E8B84B" stroke-width="1" opacity="0.4"/>
-                    <circle cx="48" cy="48" r="38" stroke="#E8B84B" stroke-width="1" opacity="0.25"/>
+                    <circle cx="48" cy="48" r="45" stroke="#E8B84B" stroke-width="1" opacity="0.4" />
+                    <circle cx="48" cy="48" r="38" stroke="#E8B84B" stroke-width="1" opacity="0.25" />
                     <!-- Glow -->
-                    <circle cx="48" cy="48" r="36" fill="url(#seal-fill)"/>
+                    <circle cx="48" cy="48" r="36" fill="url(#seal-fill)" />
                     <!-- Check -->
-                    <path d="M30 48 L42 60 L66 36" stroke="white" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"
-                        stroke-dasharray="60" stroke-dashoffset="60">
-                        <animate attributeName="stroke-dashoffset" from="60" to="0" dur="0.6s" begin="0.8s" fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1"/>
+                    <path d="M30 48 L42 60 L66 36" stroke="white" stroke-width="4" stroke-linecap="round"
+                        stroke-linejoin="round" stroke-dasharray="60" stroke-dashoffset="60">
+                        <animate attributeName="stroke-dashoffset" from="60" to="0" dur="0.6s" begin="0.8s"
+                            fill="freeze" calcMode="spline" keySplines="0.4 0 0.2 1" />
                     </path>
                     <!-- Decorative dots on ring -->
-                    <circle cx="48" cy="3" r="2" fill="#E8B84B" opacity="0.6"/>
-                    <circle cx="48" cy="93" r="2" fill="#E8B84B" opacity="0.6"/>
-                    <circle cx="3" cy="48" r="2" fill="#E8B84B" opacity="0.6"/>
-                    <circle cx="93" cy="48" r="2" fill="#E8B84B" opacity="0.6"/>
+                    <circle cx="48" cy="3" r="2" fill="#E8B84B" opacity="0.6" />
+                    <circle cx="48" cy="93" r="2" fill="#E8B84B" opacity="0.6" />
+                    <circle cx="3" cy="48" r="2" fill="#E8B84B" opacity="0.6" />
+                    <circle cx="93" cy="48" r="2" fill="#E8B84B" opacity="0.6" />
                     <defs>
                         <radialGradient id="seal-fill" cx="40%" cy="35%">
-                            <stop offset="0%" stop-color="#F5D07A"/>
-                            <stop offset="100%" stop-color="#C49A2A"/>
+                            <stop offset="0%" stop-color="#F5D07A" />
+                            <stop offset="100%" stop-color="#C49A2A" />
                         </radialGradient>
                     </defs>
                 </svg>
@@ -369,7 +465,8 @@
         <div class="items">
             <div class="item">
                 <svg class="item-icon" viewBox="0 0 20 20" fill="none">
-                    <path d="M3 10l5.5 5.5L17 4.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 10l5.5 5.5L17 4.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                        stroke-linejoin="round" />
                 </svg>
                 <div class="item-text">
                     <strong>Dedicated folder created</strong>
@@ -378,7 +475,8 @@
             </div>
             <div class="item">
                 <svg class="item-icon" viewBox="0 0 20 20" fill="none">
-                    <path d="M3 10l5.5 5.5L17 4.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 10l5.5 5.5L17 4.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                        stroke-linejoin="round" />
                 </svg>
                 <div class="item-text">
                     <strong>Auto-sync enabled</strong>
@@ -387,7 +485,8 @@
             </div>
             <div class="item">
                 <svg class="item-icon" viewBox="0 0 20 20" fill="none">
-                    <path d="M3 10l5.5 5.5L17 4.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 10l5.5 5.5L17 4.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                        stroke-linejoin="round" />
                 </svg>
                 <div class="item-text">
                     <strong>Access is scoped &amp; secure</strong>
@@ -396,7 +495,8 @@
             </div>
             <div class="item">
                 <svg class="item-icon" viewBox="0 0 20 20" fill="none">
-                    <path d="M3 10l5.5 5.5L17 4.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 10l5.5 5.5L17 4.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"
+                        stroke-linejoin="round" />
                 </svg>
                 <div class="item-text">
                     <strong>Manage anytime</strong>
@@ -423,9 +523,10 @@
             el.textContent = n;
             if (n <= 0) {
                 clearInterval(iv);
-                window.location.href = 'myapp://auth/drive-callback?success=true';
+                window.location.href = 'epubshelf://auth/drive-callback?success=true';
             }
         }, 1000);
     </script>
 </body>
+
 </html>
